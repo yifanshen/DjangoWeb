@@ -21,7 +21,19 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 import  xadmin
 
+from users.views import user_login
+from users.views import LoginView
+
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
-    url('^$', TemplateView.as_view(template_name="index.html"), name="index")
+    url('^$', TemplateView.as_view(template_name="index.html"), name="index"),
+    #注意 这里根目录下 login 前面不需要加上/
+    #url('^login/$', TemplateView.as_view(template_name="login.html"), name="login"),
+
+    #这里注意，login 是传递的一个句柄， 并不要用括号考起来， 这个是6.2 6.3 对应的url
+    #url('^login/$', user_login, name="login"),
+
+    #这个是6.4 对应的 url 使用view class 来实现功能
+    url('^login/$', LoginView.as_view(), name="login"),
+
 ]

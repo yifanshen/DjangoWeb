@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Django settings for MxOnline project.
 
@@ -30,6 +31,11 @@ SECRET_KEY = 'g#+h3up!^mbxbikum6krft_$sni#s!o!6p2o$)tyafymy!*1jq'
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
+#Application definition 这里是调用views中额CustomBackend 来让邮箱也可以登录
+AUTHENTICATION_BACKENDS = (
+    'users.views.CustomBackend',
+)
 
 
 # Application definition
@@ -137,3 +143,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# 6-1 ->
+#一开始说是错误 "Your STATICFILES_DIRS setting is not a tuple or list; " django.core.exceptions.ImproperlyConfigured: Your STATICFILES_DIRS setting is not a tuple or list; perhaps you forgot a trailing comma?"
+#然后把这边的地址添加上一个list 的方括号 就可以了
+STATICFILES_DIRS = [(
+    os.path.join(BASE_DIR,"static")
+)]
